@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading">
+  <div>
     <el-container>
       <el-header height="80px">
         <h1 class="logo">logo</h1>
@@ -68,7 +68,10 @@
                 >
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="loginIn" :disabled="isAble"
+                <el-button
+                  type="primary"
+                  @click="submitForm('ruleForm')"
+                  :disabled="isAble"
                   >登录</el-button
                 >
               </el-form-item>
@@ -81,19 +84,19 @@
       <el-footer height="180px">
         <div class="des-items">
           <figure>
-            <i class="el-icon-wallet"></i>
+            <span class="iconfont icon-myicon-"></span>
             <figcaption>数据整合</figcaption>
           </figure>
           <figure>
-            <i class="el-icon-document"></i>
+            <i class="iconfont icon-xietongbangong"></i>
             <figcaption>流程协同</figcaption>
           </figure>
           <figure>
-            <i class="el-icon-notebook-2"></i>
+            <i class="iconfont icon-shuju"></i>
             <figcaption>体系诊断</figcaption>
           </figure>
           <figure>
-            <i class="el-icon-office-building"></i>
+            <i class="iconfont icon-qiye"></i>
             <figcaption>企业升级</figcaption>
           </figure>
         </div>
@@ -101,7 +104,7 @@
           <li>Copyright(C)2020</li>
           <li>数易智慧@2020</li>
           <li>ICP备12003508号-15</li>
-          <li>公安备12003508号-15</li>
+          <li>公安备1553508号-15</li>
         </ul>
       </el-footer>
     </el-container>
@@ -109,14 +112,12 @@
 </template>
 <script>
 import "@/styles/login.scss";
-import "@/assets/fonts/iconfont.css";
 import dragVerify from "vue-drag-verify";
 import Cookies from "js-cookie";
 export default {
   props: {},
   data() {
     //
-
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入用户"));
@@ -133,8 +134,7 @@ export default {
       }
     };
     return {
-      loading: "",
-      checked: true,
+      checked: false,
       // 滑动模块
       handlerIcon: "fa fa-angle-double-right",
       successIcon: "fa fa-check",
@@ -154,7 +154,7 @@ export default {
       isAble: true,
       rules: {
         userName: [{ validator: validatePass, trigger: "blur" }],
-        userPassWord: [{ validator: validatePass2, trigger: "primary" }]
+        userPassWord: [{ validator: validatePass2, trigger: "blur" }]
       }
     };
   },
@@ -166,10 +166,7 @@ export default {
   },
   methods: {
     loginIn(x) {
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 3000);
+      console.log(this.$refs.Verify.isPassing, x);
     },
     passcallback() {
       this.isAble = false;
