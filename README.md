@@ -20,71 +20,51 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-```js <el-form class="mtb-20" :rules="rules" status-icon>
-              <el-form-item>
-                <el-input
-                  prefix-icon="el-icon-user ft-gray"
-                  size="medium"
-                  placeholder="请输入用户名"
-                  v-model="userName"
-                ></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-input
-                  prefix-icon="el-icon-lock ft-gray"
-                  size="medium"
-                  placeholder="请输入密码"
-                  clearable
-                  v-model="userPassWord"
-                ></el-input>
-              </el-form-item>
-              <el-form-item class="flex">
-                <!-- 滑动 -->
-                <drag-verify
-                  :width="width"
-                  :height="height"
-                  :text="text"
-                  :circle="false"
-                  :success-text="successText"
-                  :background="background"
-                  :progress-bar-bg="progressBarBg"
-                  :completed-bg="completedBg"
-                  :handler-bg="handlerBg"
-                  :handler-icon="handlerIcon"
-                  :text-size="textSize"
-                  :success-icon="successIcon"
-                  ref="Verify"
-                >
-                </drag-verify>
-              </el-form-item>
-              <span>找回密码</span>
-              <el-checkbox v-model="checked" true-label="#cccc"
-                >记住我</el-checkbox
-              >
-              <el-form-item>
-                <el-button
-                  type="primary"
-                  size="medium"
-                  class="w100p"
-                  @click="loginIn()"
-                  >登录</el-button
-                >
-              </el-form-item>
-            </el-form>
+## 创建项目
+
+```js
+vue init webpack XXX
+
 ```
 
-### js-cookie 使用
+## 安装 sass 依赖
 
-```js // npm安装
-npm install js-cookie --save
+```js
+cnpm install node-sass@4.x --save-dev
+cnpm install sass-loader@7.3.1 --save-dev
+cnpm install style-loader --save-dev
+```
 
-// 引用
-import Cookies from 'js-cookie'
-// 使用
-1 设置cookie
-Cookies.set('name', 'value'， day);
-2 获取cookie
-Cookies.get('name');
-3 删除
-Cookies.remove('name');
+## 安装 MD5
+
+```js
+npm install crypto-js --save-dev
+```
+
+```js
+//使用md5 加密
+  CryptoJS  https://www.cnblogs.com/huiguo/p/16601076.html
+```
+
+## QS 使用
+
+```js
+//安装
+npm install qs
+//引入
+import qs from 'qs'
+//常用方法
+qs.parse() //将url 简析成对象
+qs.stringify() //将对象 简析成url 第二个参数 指定输出格式
+```
+
+## 创建库 方便后期调用
+
+### 分别暴露 & 默认暴露
+
+```js
+import XXX from "XXX";
+export default {
+  XXXX
+};
 ```

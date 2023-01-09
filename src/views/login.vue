@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="loading">
     <el-container>
       <el-header height="80px">
         <h1 class="logo">logo</h1>
@@ -15,7 +15,7 @@
             </p>
           </el-col>
           <el-col :span="6" :offset="8" class="box-log">
-            <h2 class="ft-18">登录</h2>
+            <h2 class="btn-18">登录</h2>
             <!--  -->
             <el-form
               :model="ruleForm"
@@ -28,7 +28,8 @@
             >
               <el-form-item prop="userName">
                 <el-input
-                  v-model.number="ruleForm.userName"
+                  type="text"
+                  v-model="ruleForm.userName"
                   prefix-icon="el-icon-user ft-gray"
                 ></el-input>
               </el-form-item>
@@ -70,7 +71,7 @@
               <el-form-item>
                 <el-button
                   type="primary"
-                  @click="submitForm('ruleForm')"
+                  @click="submitForm()"
                   :disabled="isAble"
                   >登录</el-button
                 >
@@ -114,13 +115,17 @@
 import "@/styles/login.scss";
 import dragVerify from "vue-drag-verify";
 import Cookies from "js-cookie";
+import { login, UserList } from "@/api/khaan";
+import userAuth from "@/lib/auth.js";
+//md5
+import crypto from "crypto-js";
 export default {
   props: {},
   data() {
     //
     var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入用户"));
+      if (!value) {
+        return callback(new Error("请输入用户"));
       } else {
         if (this.ruleForm.checkPass !== "") {
           this.$refs.ruleForm.validateField("checkPass");
@@ -130,11 +135,12 @@ export default {
     };
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请输入密码"));
+        return callback(new Error("请输入密码"));
       }
     };
     return {
       checked: false,
+      loading: "",
       // 滑动模块
       handlerIcon: "fa fa-angle-double-right",
       successIcon: "fa fa-check",
@@ -149,7 +155,7 @@ export default {
       textSize: "18px",
       ruleForm: {
         userName: "",
-        userPassWord: ""
+        userPassWord: "123456"
       },
       isAble: true,
       rules: {
@@ -165,22 +171,82 @@ export default {
     this.checked = Cookies.get("checked");
   },
   methods: {
-    loginIn(x) {
-      console.log(this.$refs.Verify.isPassing, x);
+    // 登录按钮
+    submitForm(x) {
+      this.loading = "true";
+      //登录接口login
+      login(
+        this.ruleForm.userName,
+        crypto.MD5(this.ruleForm.userPassWord).toString()
+      )
+        .then(result => {
+          Cookies.set("UserName", this.ruleForm.userName, 30);
+
+          //存储 token
+          userAuth.token.set(result.data.access_token);
+          setTimeout(() => {
+            this.loading = false;
+            this.open();
+          }, 1000);
+        })
+        .catch(err => {
+          setTimeout(() => {
+            this.loading = false;
+            this.open4();
+          }, 1000);
+          Cookies.remove("UserName");
+          throw err;
+        });
+
+      // commonUtils.storage.setSession("keuy", "zhangsan");
+      // commonUtils.storage.setLocal("key2", {
+      //   user: "lisi",
+      //   paswd: "dsfasdf"
+      // });
+      // setTimeout(() => {
+      //   commonUtils.storage.removeSession("keuy");
+      //   commonUtils.storage.removeLocal("key2");
+      // }, 10000);
+      // setTimeout(() => {
+      //   console.log(commonUtils.storage.getSession("keuy"));
+      //   console.log(commonUtils.storage.getLocal("key2"));
+      // }, 5000);
+
+      // 获取用户信息
+      console.log(userAuth.token.get());
+      UserList()
+        .then(result => {
+          console.log("用户列表", result);
+        })
+        .catch(err => {
+          throw err;
+        });
     },
     passcallback() {
       this.isAble = false;
+    },
+    open() {
+      this.$message({
+        message: "登录成功！",
+        type: "success"
+      });
+    },
+    open4() {
+      this.$message.error("用户名或密码错误！");
     }
   },
   watch: {
     checked: {
+      // immediate: true,
       handler(value, oldvalue) {
         if (value) {
           this.checked = true;
-          Cookies.set("UserName", this.ruleForm.userName, 30);
-          Cookies.set("checked", value, 30);
+          if (this.ruleForm.userName !== undefined) {
+            Cookies.set("UserName", this.ruleForm.userName, 30);
+            Cookies.set("checked", value, 30);
+          }
         }
-        if (oldvalue) {
+        if (!value) {
           Cookies.remove("UserName");
           Cookies.remove("checked");
         }
