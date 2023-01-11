@@ -253,3 +253,22 @@ export default {
 ```js
 https://juejin.cn/post/6997772711594295327
 ```
+
+## Bearer Token && JWT
+
+```
+Bearer Token拿到以后，需要在http请求中，添加header:
+https://xmanyou.com/bearer-token-usage-sample/
+```
+
+## vxe-table 一个好用的第三方库
+
+```
+https://vxetable.cn/#/table/module/modal
+```
+
+#### CSS/HTML 改变鼠标形状
+
+```
+https://blog.csdn.net/qq_27361945/article/details/79206480
+```
