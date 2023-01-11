@@ -173,8 +173,9 @@ export default {
   mounted() {
     this.ruleForm.userName = Cookies.get("UserName");
     this.checked = Cookies.get("checked");
+    var than = this.isShow;
     this.$bus.$on("isShow", data => {
-      this.isShow = data;
+      than.isShow = data;
     });
   },
   components: {
@@ -235,6 +236,11 @@ export default {
     }
   },
   watch: {
+    isShow: {
+      header(value, oldvalue) {
+        console.log(value, oldvalue);
+      }
+    },
     checked: {
       handler(value, oldvalue) {
         if (value) {

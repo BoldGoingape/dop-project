@@ -26,6 +26,107 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 vue init webpack XXX
 ```
 
+## 结构目录
+
+```
+.
+├── build
+│   ├── build.js
+│   ├── check-versions.js
+│   ├── logo.png
+│   ├── utils.js
+│   ├── vue-loader.conf.js
+│   ├── webpack.base.conf.js
+│   ├── webpack.dev.conf.js
+│   └── webpack.prod.conf.js
+├── config
+│   ├── dev.env.js
+│   ├── index.js
+│   └── prod.env.js
+├── dop-login
+│   ├── build
+│   │   ├── build.js
+│   │   ├── check-versions.js
+│   │   ├── logo.png
+│   │   ├── utils.js
+│   │   ├── vue-loader.conf.js
+│   │   ├── webpack.base.conf.js
+│   │   ├── webpack.dev.conf.js
+│   │   └── webpack.prod.conf.js
+│   ├── config
+│   │   ├── dev.env.js
+│   │   ├── index.js
+│   │   └── prod.env.js
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   ├── src
+│   │   ├── App.vue
+│   │   ├── assets
+│   │   │   └── logo.png
+│   │   ├── components
+│   │   │   └── HelloWorld.vue
+│   │   ├── main.js
+│   │   └── router
+│   │       └── index.js
+│   └── static
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   ├── api
+│   │   └── khaan.js
+│   ├── App.vue
+│   ├── assets
+│   │   ├── fonts
+│   │   │   ├── demo.css
+│   │   │   ├── demo_index.html
+│   │   │   ├── iconfont.css
+│   │   │   ├── iconfont.eot
+│   │   │   ├── iconfont.js
+│   │   │   ├── iconfont.json
+│   │   │   ├── iconfont.svg
+│   │   │   ├── iconfont.ttf
+│   │   │   ├── iconfont.woff
+│   │   │   └── iconfont.woff2
+│   │   ├── images
+│   │   │   ├── erweima.jpg
+│   │   │   ├── login_logo.png
+│   │   │   ├── system_01.png
+│   │   │   ├── system_02.png
+│   │   │   ├── system_03.png
+│   │   │   ├── system_04.png
+│   │   │   ├── system_05.png
+│   │   │   └── system_06.png
+│   │   ├── logo.png
+│   │   ├── package.json
+│   │   └── sm.png
+│   ├── components
+│   │   └── LoginBox.vue
+│   ├── constants
+│   ├── datas
+│   ├── lib
+│   │   ├── auth.js
+│   │   ├── requsert.js
+│   │   └── utils.js
+│   ├── main.js
+│   ├── plugins
+│   ├── router
+│   │   └── index.js
+│   ├── styles
+│   │   ├── login.scss
+│   │   ├── reset.scss
+│   │   └── widget.scss
+│   └── views
+│       ├── 404.vue
+│       └── login.vue
+└── static
+    └── config.js
+
+```
+
 ## 安装 sass 依赖
 
 ```js
@@ -126,3 +227,9 @@ export default {
 ## 弹出组件
 
 1.居住显示 2.宽高， 传递参数
+
+## 托拽事件，有边界判断
+
+```js
+https://juejin.cn/post/6997772711594295327
+```

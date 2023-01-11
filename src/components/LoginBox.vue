@@ -1,6 +1,10 @@
 <template>
-  <div class="moneBox" style="width: 450px; background-color: white">
-    <div style="" class="Tiele">
+  <div
+    class="moneBox dialog"
+    id="drag"
+    style="width: 450px; background-color: white"
+  >
+    <div style="" class="Tiele dialog-title" @click="drag">
       <span style="margin-left: 10px">选择租户</span>
       <h1 style="margin-left: 95%; cursor: pointer" @click="isShow">X</h1>
     </div>
@@ -43,10 +47,40 @@ export default {
     isShow() {
       this.$bus.$emit("isShow", false);
     },
-    //租户方法
+    //获取租户
     selectValue(data) {
       console.log(auth.userTenants.get("userTenants"));
       console.log(data);
+    },
+    //拖拽
+    drag() {
+      let drag = document.getElementById("drag");
+      drag.onmousedown = function(e) {
+        let diffX = e.clientX - drag.offsetLeft; //鼠标距box边框的距离
+        let diffY = e.clientY - drag.offsetTop;
+        document.onmousemove = function(e) {
+          let left = e.clientX - diffX;
+          let top = e.clientY - diffY;
+          //控制在视窗内
+          if (left < 0) {
+            left = 0;
+          } else if (left > window.innerWidth - drag.offsetWidth) {
+            left = window.innerWidth - drag.offsetWidth;
+          }
+          if (top < 0) {
+            top = 0;
+          } else if (top > window.innerHeight - drag.offsetHeight) {
+            top = window.innerHeight - drag.offsetHeight;
+          }
+          drag.style.left = left + "px";
+          drag.style.top = top + "px";
+        };
+        document.onmouseup = function(e) {
+          // console.log(this);
+          this.onmousemove = null;
+          this.onmouseup = null;
+        };
+      };
     }
   },
   mounted() {
@@ -64,13 +98,25 @@ export default {
 .moneBox {
   position: absolute;
   top: 250px;
-  left: 35%;
+  left: 40%;
   z-index: 999;
 }
+#drag {
+  position: absolute;
+  justify-content: center;
+  position: absolute;
+  border-top-left-radius: 17px;
+  border-top-right-radius: 17px;
+  border-bottom-left-radius: 17px;
+  border-bottom-right-radius: 17px;
+}
 .Tiele {
+  cursor: move;
   height: 50px;
   line-height: 50px;
   background-color: #0080c9;
+  border-top-left-radius: 17px;
+  border-top-right-radius: 17px;
   span {
     float: left;
   }
@@ -83,7 +129,7 @@ export default {
   }
   .el-button {
     margin-top: 40px;
-    width: 150px;
+    width: 135px;
   }
 }
 </style>
