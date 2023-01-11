@@ -1,11 +1,11 @@
-import axios from "axios";
+import request from "../lib/requsert";
 import qs from "qs";
 import userAuth from "@/lib/auth.js";
-let BASEAPI = window.API.DEV_SERVER;
+
 //暴露
 export function login(userName, passWord) {
-  return axios({
-    url: BASEAPI + "/khaan/login",
+  return request({
+    url: "/khaan/login",
     // url: "http://dev.qingdao.internal.zzydop.com/khaan/login",
     method: "POST",
     data: qs.stringify({
@@ -18,9 +18,8 @@ export function login(userName, passWord) {
 }
 export function UserList() {
   let token = userAuth.token.get();
-  alert(token);
-  return axios({
-    url: BASEAPI + "/khaan/me/profile",
+  return request({
+    url: "/khaan/me/profile",
     // url: "http://dev.qingdao.internal.zzydop.com/khaan/me/profile",
     method: "GET",
     headers: {

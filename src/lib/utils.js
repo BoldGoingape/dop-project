@@ -4,7 +4,7 @@ export default {
     //sessionStorage
     setSession(key, value) {
       if (typeof value !== "string") {
-        value = JSON.stringify(value);
+        window.sessionStorage.setItem(key, value);
       }
       window.sessionStorage.setItem(key, value);
     },

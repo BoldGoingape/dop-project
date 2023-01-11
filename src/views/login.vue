@@ -85,19 +85,19 @@
       <el-footer height="180px">
         <div class="des-items">
           <figure>
-            <span class="iconfont icon-myicon-"></span>
+            <i class="iconfont icondata_ico"></i>
             <figcaption>数据整合</figcaption>
           </figure>
           <figure>
-            <i class="iconfont icon-xietongbangong"></i>
+            <i class="iconfont iconres_ico"></i>
             <figcaption>流程协同</figcaption>
           </figure>
           <figure>
-            <i class="iconfont icon-shuju"></i>
+            <i class="iconfont iconoper_ico"></i>
             <figcaption>体系诊断</figcaption>
           </figure>
           <figure>
-            <i class="iconfont icon-qiye"></i>
+            <i class="iconfont iconupgrade_ico"></i>
             <figcaption>企业升级</figcaption>
           </figure>
         </div>
@@ -109,16 +109,18 @@
         </ul>
       </el-footer>
     </el-container>
+    <loginBox v-if="isShow" :isShow="isShow"> </loginBox>
   </div>
 </template>
 <script>
 import "@/styles/login.scss";
 import dragVerify from "vue-drag-verify";
 import Cookies from "js-cookie";
-import { login, UserList } from "@/api/khaan";
+import { login, UserList, userTenants } from "@/api/khaan";
 import userAuth from "@/lib/auth.js";
 //md5
 import crypto from "crypto-js";
+import loginBox from "@/components/LoginBox.vue";
 export default {
   props: {},
   data() {
@@ -139,6 +141,7 @@ export default {
       }
     };
     return {
+      isShow: false,
       checked: false,
       loading: "",
       // 滑动模块
@@ -164,11 +167,19 @@ export default {
       }
     };
   },
-  components: { dragVerify },
+
   computed() {},
+
   mounted() {
     this.ruleForm.userName = Cookies.get("UserName");
     this.checked = Cookies.get("checked");
+    this.$bus.$on("isShow", data => {
+      this.isShow = data;
+    });
+  },
+  components: {
+    dragVerify,
+    loginBox
   },
   methods: {
     // 登录按钮
@@ -179,12 +190,24 @@ export default {
         this.ruleForm.userName,
         crypto.MD5(this.ruleForm.userPassWord).toString()
       )
-        .then(result => {
+        .then(async result => {
           Cookies.set("UserName", this.ruleForm.userName, 30);
-
           //存储 token
           userAuth.token.set(result.data.access_token);
+          //用户列表
+          let userListProfile = await UserList();
+          userAuth.profile.set(userListProfile.data);
+          //租户列表
+          if (result.data.tenants.length == 0) {
+            this.$message.error({
+              message: "当前用户没有租户",
+              type: "success"
+            });
+          } else {
+            userAuth.userTenants.set(result.data.tenants);
+          }
           setTimeout(() => {
+            this.isShow = true;
             this.loading = false;
             this.open();
           }, 1000);
@@ -195,30 +218,6 @@ export default {
             this.open4();
           }, 1000);
           Cookies.remove("UserName");
-          throw err;
-        });
-
-      // commonUtils.storage.setSession("keuy", "zhangsan");
-      // commonUtils.storage.setLocal("key2", {
-      //   user: "lisi",
-      //   paswd: "dsfasdf"
-      // });
-      // setTimeout(() => {
-      //   commonUtils.storage.removeSession("keuy");
-      //   commonUtils.storage.removeLocal("key2");
-      // }, 10000);
-      // setTimeout(() => {
-      //   console.log(commonUtils.storage.getSession("keuy"));
-      //   console.log(commonUtils.storage.getLocal("key2"));
-      // }, 5000);
-
-      // 获取用户信息
-      console.log(userAuth.token.get());
-      UserList()
-        .then(result => {
-          console.log("用户列表", result);
-        })
-        .catch(err => {
           throw err;
         });
     },
@@ -237,7 +236,6 @@ export default {
   },
   watch: {
     checked: {
-      // immediate: true,
       handler(value, oldvalue) {
         if (value) {
           this.checked = true;
