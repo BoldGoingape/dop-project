@@ -16,6 +16,7 @@ export function login(userName, passWord) {
     })
   });
 }
+//获取用户列表
 export function UserList() {
   let token = userAuth.token.get();
   return request({
@@ -26,5 +27,16 @@ export function UserList() {
       Authorization: token
     }
   });
-  // 设置请求的根路径
+}
+// 获取用户租户团队
+export function getTenantTeams(teamId) {
+  console.log("我是id值", teamId);
+  let token = userAuth.token.get();
+  return request({
+    url: `/khaan/me/tenants/${teamId}/teams`,
+    method: "GET",
+    headers: {
+      Authorization: token
+    }
+  });
 }

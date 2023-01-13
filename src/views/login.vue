@@ -109,7 +109,8 @@
         </ul>
       </el-footer>
     </el-container>
-    <loginBox v-if="isShow" :isShow="isShow"> </loginBox>
+    <loginBox v-show="isShow"> </loginBox>
+    <Tenant_app v-show="doubleShow" />
   </div>
 </template>
 <script>
@@ -121,6 +122,8 @@ import userAuth from "@/lib/auth.js";
 //md5
 import crypto from "crypto-js";
 import loginBox from "@/components/LoginBox.vue";
+import { getConfig } from "@/api/unay";
+import Tenant_app from "@/components/Tenant_app.vue";
 export default {
   props: {},
   data() {
@@ -141,6 +144,7 @@ export default {
       }
     };
     return {
+      doubleShow: false,
       isShow: false,
       checked: false,
       loading: "",
@@ -173,14 +177,19 @@ export default {
   mounted() {
     this.ruleForm.userName = Cookies.get("UserName");
     this.checked = Cookies.get("checked");
-    var than = this.isShow;
     this.$bus.$on("isShow", data => {
-      than.isShow = data;
+      this.isShow = data;
+      console.log("我是接受值", data);
+    });
+    this.$bus.$on("doubleShow", data => {
+      console.log("我接受到2的值", data);
+      this.doubleShow = data;
     });
   },
   components: {
     dragVerify,
-    loginBox
+    loginBox,
+    Tenant_app
   },
   methods: {
     // 登录按钮
@@ -236,13 +245,9 @@ export default {
     }
   },
   watch: {
-    isShow: {
-      header(value, oldvalue) {
-        console.log(value, oldvalue);
-      }
-    },
     checked: {
       handler(value, oldvalue) {
+        console.log(value, oldvalue);
         if (value) {
           this.checked = true;
           if (this.ruleForm.userName !== undefined) {
@@ -259,4 +264,5 @@ export default {
   }
 };
 </script>
+
 <style scoped lang="scss"></style>

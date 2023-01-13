@@ -272,3 +272,13 @@ https://vxetable.cn/#/table/module/modal
 ```
 https://blog.csdn.net/qq_27361945/article/details/79206480
 ```
+
+设置浮动后一定要清除浮动
+
+```js
+    isShow: {
+      header(value, oldvalue) {
+        console.log(value, oldvalue);
+      }
+    },
+```

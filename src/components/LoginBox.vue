@@ -5,8 +5,14 @@
     style="width: 450px; background-color: white"
   >
     <div style="" class="Tiele dialog-title" @click="drag">
-      <span style="margin-left: 10px">选择租户</span>
-      <h1 style="margin-left: 95%; cursor: pointer" @click="isShow">X</h1>
+      <span style="margin-left: 10px;overflow:hidden">选择租户</span>
+      <h1
+        style="margin-left: 95%; cursor: pointer"
+        @click="isShow"
+        title="关闭"
+      >
+        X
+      </h1>
     </div>
     <div class="TieleBox">
       <div class="selectItem">
@@ -26,7 +32,7 @@
         </el-select>
         <div class="btn">
           <el-button size="small" @click="isShow">取消</el-button>
-          <el-button size="small">确定</el-button>
+          <el-button size="small" @click="determineBtn">确定</el-button>
         </div>
       </div>
     </div>
@@ -34,6 +40,8 @@
 </template>
 <script>
 import auth from "@/lib/auth.js";
+import { getTenantTeams } from "@/api/khaan";
+import { getConfig } from "@/api/unay";
 export default {
   name: "Checksystem-",
   // props: ["isShow"],
@@ -44,14 +52,48 @@ export default {
     };
   },
   methods: {
+    //获取用户列表
+    getApplicationList() {
+      getConfig({ type: "TENANT_APP" })
+        .then(result => {
+          console.log("我是数据1", result.data[0]);
+          // let app_lis = JSON.parse(result.data[0].def);
+          auth.applicationList.set(result.data[0].def);
+        })
+        .catch(err => {
+          throw err;
+        });
+    },
     isShow() {
       this.$bus.$emit("isShow", false);
     },
-    //获取租户
-    selectValue(data) {
-      console.log(auth.userTenants.get("userTenants"));
-      console.log(data);
+    determineBtn() {
+      this.$bus.$emit("doubleShow", true);
+      this.$bus.$emit("isShow", false);
+      console.log("确定");
     },
+    //获取租户
+    selectValue(data, value) {
+      // console.log(auth.userTenants.get("userTenants"));
+      console.log(data);
+      auth.currentTenant.set(data);
+      //团队信息结果
+      getTenantTeams(data)
+        .then(result => {
+          console.log(result);
+          auth.tenantTeams.set(result.data);
+          if (result.data.length > 0) {
+            auth.currentTeam.set(result.data[0]);
+            this.getApplicationList();
+          } else {
+            console.log("没有租户信息");
+          }
+        })
+        .catch(err => {
+          throw err;
+        });
+    },
+
     //拖拽
     drag() {
       let drag = document.getElementById("drag");
@@ -94,6 +136,22 @@ export default {
   }
 };
 </script>
+<style>
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s;
+}
+
+.fade-enter,
+    .fade-leave-to
+
+    /* .fade-leave-active, 2.1.8 版本以下 */
+ {
+  opacity: 0;
+}
+</style>
 <style lang="scss" scoped>
 .moneBox {
   position: absolute;
@@ -105,18 +163,12 @@ export default {
   position: absolute;
   justify-content: center;
   position: absolute;
-  border-top-left-radius: 17px;
-  border-top-right-radius: 17px;
-  border-bottom-left-radius: 17px;
-  border-bottom-right-radius: 17px;
 }
 .Tiele {
   cursor: move;
   height: 50px;
   line-height: 50px;
-  background-color: #0080c9;
-  border-top-left-radius: 17px;
-  border-top-right-radius: 17px;
+  background-color: rgba(231, 231, 231, 0.5);
   span {
     float: left;
   }
