@@ -1,4 +1,4 @@
-<template>
+<template name="test-slide-fade">
   <div
     class="moneBox dialog"
     id="drag"
@@ -80,7 +80,7 @@ export default {
       //团队信息结果
       getTenantTeams(data)
         .then(result => {
-          console.log(result);
+          console.log("团队信息结果", result.data);
           auth.tenantTeams.set(result.data);
           if (result.data.length > 0) {
             auth.currentTeam.set(result.data[0]);
@@ -136,22 +136,6 @@ export default {
   }
 };
 </script>
-<style>
-/* 可以设置不同的进入和离开动画 */
-/* 设置持续时间和动画函数 */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s;
-}
-
-.fade-enter,
-    .fade-leave-to
-
-    /* .fade-leave-active, 2.1.8 版本以下 */
- {
-  opacity: 0;
-}
-</style>
 <style lang="scss" scoped>
 .moneBox {
   position: absolute;
@@ -168,7 +152,7 @@ export default {
   cursor: move;
   height: 50px;
   line-height: 50px;
-  background-color: rgba(231, 231, 231, 0.5);
+  background-color: #0080c9;
   span {
     float: left;
   }

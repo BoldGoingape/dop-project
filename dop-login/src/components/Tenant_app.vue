@@ -10,7 +10,7 @@
         X
       </h1>
     </div>
-    <div class="TieleBox">
+    <div id="TieleBox" class="TieleBox">
       <div
         class="img-div"
         v-for="item in applicationList"
@@ -77,9 +77,8 @@ export default {
     queryView() {
       const applicationList = JSON.parse(auth.applicationList.get());
       if (applicationList.length <= 6) {
-        var TieleBox = document.getElementsByClassName("TieleBox")[0];
-        console.log("我是换行", TieleBox);
-        TieleBox.style.height = "500px";
+        var tieleBox = document.getElementById("TieleBox");
+        tieleBox.style.height = "500px";
       }
     }
   },

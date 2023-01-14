@@ -109,8 +109,10 @@
         </ul>
       </el-footer>
     </el-container>
-    <loginBox v-show="isShow"> </loginBox>
-    <Tenant_app v-show="doubleShow" />
+    <transition name="fade">
+      <loginBox v-if="isShow"> </loginBox>
+      <Tenant_app v-if="doubleShow" />
+    </transition>
   </div>
 </template>
 <script>
@@ -265,4 +267,11 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.fade-enter-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
+  opacity: 0;
+}
+</style>
