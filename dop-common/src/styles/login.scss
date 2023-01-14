@@ -1,0 +1,105 @@
+//滑动模块
+>>> .dv_handler {
+  height: 42px !important;
+}
+.el-container {
+  height: 100%;
+  header,
+  main,
+  footer > div {
+    padding: 0 calc((100% - 1200px) / 2);
+  }
+}
+.el-button {
+  width: 300px;
+}
+.el-header {
+  //  height:80px!important;
+  background-color: #0080c9;
+}
+
+.logo {
+  height: 80px;
+  text-indent: -9999px;
+  overflow: hidden;
+  background: url(../assets/logo.png) no-repeat 0 50% / auto 70px;
+}
+.btn-18 {
+  margin-bottom: 15px;
+}
+.el-main {
+  flex: 1;
+  min-height: calc(100vh - 260px);
+  background-color: #cbccd4;
+
+  .dop-des {
+    line-height: 1.6;
+    letter-spacing: 4px;
+  }
+
+  h3 {
+    font-size: 26px;
+  }
+
+  h3,
+  p {
+    padding-left: 10px;
+  }
+
+  .el-divider {
+    background-color: #000;
+    height: 2px;
+  }
+}
+.box-log {
+  width: 300px;
+}
+.remember {
+  float: right;
+}
+.el-footer {
+  padding: 0;
+  background-color: #0080c9;
+}
+
+.des-items {
+  display: flex;
+  align-items: center;
+  height: 150px;
+
+  figure {
+    margin-right: 90px;
+    color: white;
+  }
+  figcaption {
+    margin-top: 10px;
+  }
+  i {
+    font-size: 35px;
+  }
+}
+
+.copy {
+  display: flex;
+  justify-content: center;
+  line-height: 30px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #000000;
+  li {
+    margin-right: 30px;
+  }
+}
+//媒体查询
+@media screen and (max-width: 1024px) {
+  .dop-des {
+    display: none;
+  }
+
+  .el-main .el-row {
+    height: calc(100vh - 230px);
+  }
+  .el-footer {
+    display: none;
+  }
+}
