@@ -8,6 +8,7 @@
 <script>
 import Header from "./header.vue";
 import Sidebar from "./sidebar.vue";
+
 export default {
   data() {
     return {};
