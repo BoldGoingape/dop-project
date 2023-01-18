@@ -1,24 +1,35 @@
 <template>
-  <div class="moneBox " id="drag" style="width: 800px; background-color: white">
-    <div style="" class="Tiele dialog-title" @click="drag">
-      <span style="margin-left: 10px;overflow:hidden">选择应用</span>
-      <h1
-        style="margin-left: 95%; cursor: pointer"
-        @click="doubleShow"
-        title="关闭"
-      >
-        X
-      </h1>
-    </div>
-    <div id="TieleBox" class="TieleBox">
-      <div
-        class="img-div"
-        v-for="item in applicationList"
-        :key="item.id"
-        @click="selectBoard(item.home_path)"
-      >
-        <img :src="item.icon" :alt="item.title" :title="item.title" srcset="" />
-        <p>{{ item.title }}</p>
+  <div class="background-log">
+    <div
+      class="moneBox "
+      id="drag"
+      style="width: 800px; background-color: white"
+    >
+      <div style="" class="Tiele dialog-title" @click="drag">
+        <span style="margin-left: 10px;overflow:hidden">选择应用</span>
+        <h1
+          style="margin-left: 95%; cursor: pointer"
+          @click="doubleShow"
+          title="关闭"
+        >
+          X
+        </h1>
+      </div>
+      <div id="TieleBox" class="TieleBox">
+        <div
+          class="img-div"
+          v-for="item in applicationList"
+          :key="item.id"
+          @click="selectBoard(item.home_path)"
+        >
+          <img
+            :src="item.icon"
+            :alt="item.title"
+            :title="item.title"
+            srcset=""
+          />
+          <p>{{ item.title }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -92,8 +103,16 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.moneBox {
+.background-log {
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
   position: absolute;
+  background: rgba(143, 136, 136, 0.384);
+  top: 0px;
+}
+.moneBox {
+  position: relative;
   top: 150px;
   left: 33%;
   z-index: 999;

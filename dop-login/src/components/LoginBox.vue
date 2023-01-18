@@ -1,38 +1,40 @@
 <template name="test-slide-fade">
-  <div
-    class="moneBox dialog"
-    id="drag"
-    style="width: 450px; background-color: white"
-  >
-    <div style="" class="Tiele dialog-title" @click="drag">
-      <span style="margin-left: 10px;overflow:hidden">选择租户</span>
-      <h1
-        style="margin-left: 95%; cursor: pointer"
-        @click="isShow"
-        title="关闭"
-      >
-        X
-      </h1>
-    </div>
-    <div class="TieleBox">
-      <div class="selectItem">
-        <span>选择租户</span>
-        <el-select
-          v-model="value"
-          placeholder="请选择"
-          @change="selectValue(value)"
+  <div class="background-log">
+    <div
+      class="moneBox dialog"
+      id="drag"
+      style="width: 450px; background-color: white"
+    >
+      <div style="" class="Tiele dialog-title" @click="drag">
+        <span style="margin-left: 10px;overflow:hidden">选择租户</span>
+        <h1
+          style="margin-left: 95%; cursor: pointer"
+          @click="isShow"
+          title="关闭"
         >
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+          X
+        </h1>
+      </div>
+      <div class="TieleBox">
+        <div class="selectItem">
+          <span>选择租户</span>
+          <el-select
+            v-model="value"
+            placeholder="请选择"
+            @change="selectValue(value)"
           >
-          </el-option>
-        </el-select>
-        <div class="btn">
-          <el-button size="small" @click="isShow">取消</el-button>
-          <el-button size="small" @click="determineBtn">确定</el-button>
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+          <div class="btn">
+            <el-button size="small" @click="isShow">取消</el-button>
+            <el-button size="small" @click="determineBtn">确定</el-button>
+          </div>
         </div>
       </div>
     </div>
@@ -137,16 +139,21 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.moneBox {
+.background-log {
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
   position: absolute;
+  background: rgba(143, 136, 136, 0.384);
+  top: 0px;
+}
+.moneBox {
+  position: relative;
   top: 250px;
   left: 40%;
-  z-index: 999;
 }
 #drag {
-  position: absolute;
   justify-content: center;
-  position: absolute;
 }
 .Tiele {
   cursor: move;

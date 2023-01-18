@@ -16,7 +16,7 @@ const userAuth = {
       commonUtils.storage.setSession("profile", JSON.stringify(value));
     },
     get() {
-      return JSON.parse(commonUtils.storage.getSession("token"));
+      return JSON.parse(commonUtils.storage.getSession("profile"));
     }
   },
   //租户缓存

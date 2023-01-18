@@ -10,15 +10,17 @@
           </el-col>
           <el-col :span="12">
             <div class=" h-60 flex">
-              <h3>天津市赛鸣科技有限公司</h3>
+              <h3>{{ tenantTeams.name }}</h3>
               <div>
                 <el-dropdown trigger="click">
                   <span class="el-dropdown-link">
-                    <!-- {{ uname }} -->dddd
+                    <!-- {{ uname }} -->{{ profile.fullname }}
                     <i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>用户详情</el-dropdown-item>
+                    <el-dropdown-item @click.native="isUserShow"
+                      >用户详情</el-dropdown-item
+                    >
                     <el-dropdown-item>修改密码</el-dropdown-item>
                     <el-dropdown-item divided>退出登录</el-dropdown-item>
                   </el-dropdown-menu>
@@ -29,17 +31,34 @@
         </el-row>
       </el-header>
     </el-container>
+    <personalUser v-if="isShow"></personalUser>
   </div>
 </template>
 
 <script>
-import Personal from "@/components/Personal.vue";
+import auth from "@/lib/auth.js";
+import personalUser from "@/components/personalUser.vue";
 export default {
   data() {
-    return {};
+    return {
+      isShow: false,
+      tenantTeams: auth.tenantTeams.get()[0],
+      profile: auth.profile.get()
+    };
   },
   components: {
-    Personal
+    personalUser
+  },
+  methods: {
+    isUserShow() {
+      this.isShow = true;
+    }
+  },
+  mounted() {
+    this.$bus.$on("isUserShow", data => {
+      this.isShow = data;
+      console.log("我是接受用户值", data);
+    });
   }
 };
 </script>
