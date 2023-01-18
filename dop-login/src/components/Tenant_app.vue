@@ -39,6 +39,7 @@ export default {
   methods: {
     selectBoard(e) {
       alert(e);
+      window.location.href = "http://www.wenjuju.com/common#/common/home";
     },
     //显示
     doubleShow() {

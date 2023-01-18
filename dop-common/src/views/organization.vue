@@ -1,6 +1,6 @@
 <template>
   <div>
-    organization
+    <h1>organization</h1>
   </div>
 </template>
 

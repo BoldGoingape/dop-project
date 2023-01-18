@@ -1,7 +1,10 @@
 <template>
   <div>
     <Header></Header>
-    <Sidebar></Sidebar>
+    <div style="display:flex">
+      <Sidebar></Sidebar>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 

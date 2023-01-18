@@ -33,9 +33,13 @@
 </template>
 
 <script>
+import Personal from "@/components/Personal.vue";
 export default {
   data() {
     return {};
+  },
+  components: {
+    Personal
   }
 };
 </script>

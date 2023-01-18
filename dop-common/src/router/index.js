@@ -4,6 +4,7 @@ import router from "vue-router";
 vue.use(router);
 
 const constantRouterMap = [
+  // { path: "/", name: "home", redirect: "/common/home" },
   {
     path: "/common",
     name: "common_index",
@@ -84,7 +85,7 @@ const constantRouterMap = [
                 component: resolve =>
                   require(["@/views/organization"], resolve),
                 meta: {
-                  label: "三级菜单"
+                  label: "A三级菜单"
                 }
               }
             ]
@@ -109,7 +110,7 @@ const constantRouterMap = [
             }
           },
           {
-            path: "/common/work/function",
+            path: "/common/work/organization",
             name: "workFunction",
             component: resolve => require(["@/views/organization"], resolve),
             meta: {
@@ -167,11 +168,11 @@ const constantRouterMap = [
     name: "404"
   }
 ];
-
+// mode: "history"
 const myRouter = new router({
   base: "/",
   routes: constantRouterMap,
-  mode: "history"
+  mode: "hash"
 });
 
 export default myRouter;
