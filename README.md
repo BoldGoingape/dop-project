@@ -3,7 +3,7 @@
 #### 介绍
 dop 后台权限管理系统
 #### 账号信息统计
-(https://github-stats.ubrong.com/api?username=BoldMonkey&show_icons=true&theme=tokyonight)
+![GitHub账户信息统计](https://github-stats.ubrong.com/api?username=BoldMonkey&show_icons=true&theme=tokyonight)
 
 #### 软件架构
 软件架构说明
