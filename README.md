@@ -1,5 +1,5 @@
 ## 社交统计
-![github统计](https://stats.justsong.cn/api/github?username=BoldMonkey&theme=dark&lang=zh-CN)
+![GitHub仓库信息卡片](https://github-stats.ubrong.com/api/pin/?username=BoldMonkey&repo=dop-progct-wwj)
 #### 介绍
 dop 后台权限管理系统
 #### 账号信息统计
