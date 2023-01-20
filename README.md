@@ -7,7 +7,7 @@ dop 后台权限管理系统
 
 #### 软件架构
 软件架构说明
-
+![GitHub账户最常用语言](https://github-stats.ubrong.com/api/top-langs/?username=BoldMonkey&theme=tokyonight)
 
 #### 安装教程
 
