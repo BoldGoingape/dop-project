@@ -2,7 +2,8 @@
 
 #### 介绍
 dop 后台权限管理系统
-![GitHub账户最常用语言](https://github-stats.ubrong.com/api/top-langs/?username=BoldMonkey&theme=tokyonight)
+#### 账号信息统计
+(https://github-stats.ubrong.com/api?username=BoldMonkey&show_icons=true&theme=tokyonight)
 
 #### 软件架构
 软件架构说明
