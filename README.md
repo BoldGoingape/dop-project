@@ -1,4 +1,4 @@
-##社交统计
+## 社交统计
 ![github统计](https://stats.justsong.cn/api/github?username=BoldMonkey&theme=dark&lang=zh-CN)
 #### 介绍
 dop 后台权限管理系统
